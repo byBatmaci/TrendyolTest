@@ -1,0 +1,26 @@
+package utilities;
+
+import java.io.FileInputStream;
+import java.util.Properties;
+
+public class ConfigReader {
+    private static Properties properties;
+    static {
+//        path of the config file
+        String path = "configuration.properties";
+        try {
+//            Opening the file
+            FileInputStream file = new FileInputStream(path);
+//            loading the file
+            properties= new Properties();
+            properties.load(file);
+//            closing the file
+            file.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public static String getProperty(String key){
+        return properties.getProperty(key);
+    }
+}
