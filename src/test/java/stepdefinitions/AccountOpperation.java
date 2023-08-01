@@ -4,12 +4,11 @@ import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.interactions.Actions;
-import pages.HomePageWebElement;
 import pages.ProductDetails;
 import utilities.Driver;
 import utilities.ReusableMethod;
 
-public class CreateNewAccountAndAccountOpperation {
+public class AccountOpperation {
     //HomePageWebElement hpw = new HomePageWebElement();
     ProductDetails pd=new ProductDetails();
 
@@ -37,7 +36,6 @@ public class CreateNewAccountAndAccountOpperation {
         Actions acti=new Actions(Driver.getDriver());
         acti.moveToElement(pd.fiveStar).click(pd.fiveStar).perform();
         //ReusableMethod.hover(pd.fiveStar);
-        ReusableMethod.waitFor(3);
         //pd.fiveStar.click();
     }
     @When("user writer {string}")

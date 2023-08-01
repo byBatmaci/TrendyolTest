@@ -15,7 +15,7 @@
       And user click trendyol Elite
       And user click yorum yapma
       And user click urunu degerlendir
-      And user gift five star product
+      When user gift five star product
       And user writer "Urun cok guzel,severek kullaniyorum"
       And user click yorum yap
       And user should see success message for to comment
