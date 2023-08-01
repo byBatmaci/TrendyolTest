@@ -10,7 +10,7 @@ public class Hooks {
     ProductDetails productD=new ProductDetails();
 
     //@BeforeStep("@CustomerMovements")
-    @AfterStep("@LikingTheProduct")
+    @AfterStep("@ChoosingProductCriteria")
     public void closeUpPopUpIf1() {
         if (isPopUp()){
             closePUp();

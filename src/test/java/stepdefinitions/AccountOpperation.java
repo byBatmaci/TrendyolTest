@@ -1,5 +1,6 @@
 package stepdefinitions;
 
+import io.cucumber.java.en.And;
 import io.cucumber.java.en.When;
 import org.junit.Assert;
 import org.openqa.selenium.By;
@@ -12,7 +13,7 @@ public class AccountOpperation {
     //HomePageWebElement hpw = new HomePageWebElement();
     ProductDetails pd=new ProductDetails();
 
-    @When("user click trendyol Elite")
+    @And("user click trendyol Elite")
     public void user_click_trendyol_elite() {
         ReusableMethod.waitFor(3);
         ReusableMethod.scrollIntoViewJS(pd.TrendyolElite);

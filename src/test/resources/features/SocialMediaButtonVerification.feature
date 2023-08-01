@@ -1,7 +1,5 @@
 @Social_Media
 Feature: Social Media Button Verification
-
-
   Scenario: Enter The WebSite
     Given user go to "url"
     When close the popup
