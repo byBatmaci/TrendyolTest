@@ -42,6 +42,9 @@ public class ProductDetails extends ShoppingCart {
     @FindBy(xpath = "(//*[@class='p-card-wrppr'])[1]")
     public WebElement lastLikeProductBox;
 
+    @FindBy(xpath = "//*[@class='popup']")
+    public WebElement productPopUp;
+
 
 
 }

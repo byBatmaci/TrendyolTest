@@ -1,13 +1,17 @@
 package stepdefinitions;
 
+import hooks.Hooks;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import io.cucumber.java.sl.In;
 import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import pages.DropDownSorting;
 import pages.HomePageWebElement;
 import pages.ProductDetails;
@@ -19,6 +23,7 @@ import java.util.List;
 public class CustomerMovents {
     ProductDetails pd=new ProductDetails();
     JavascriptExecutor js = (JavascriptExecutor) Driver.getDriver();
+    Hooks h=new Hooks();
     String expectedTextInProduct;
     int count;
     @When("user selected {string} in category")
@@ -32,22 +37,43 @@ public class CustomerMovents {
         ReusableMethod.sendKeysWithActions();
         ReusableMethod.waitFor(2);
     }
-    @When("user selected gender {string}")
-    public void user_selected_gender(String gender) {
+    @When("user scrool for gender")
+    public void userScroolForGender() {
         String genderOpenString = "//div[text()='Cinsiyet']";
         ReusableMethod.downWithJS(genderOpenString);
-        ReusableMethod.waitFor(1);
+    }
+    @And("user click open gender")
+    public void userClickOpenGender() {
         pd.genderOpen.click();
-        ReusableMethod.waitFor(1);
+    }
+    @And("user select gender")
+    public void userSelectGender() {
         pd.clickGenderMan.click();
-        ReusableMethod.waitFor(1);
-        ReusableMethod.downWithJS(genderOpenString);
-        ReusableMethod.waitFor(1);
+    }
+    @And("user close open gender")
+    public void userCloseOpenGender() {
         pd.genderOpen.click();
-        ReusableMethod.waitFor(1);
     }
 
-    @And("user selected price of the cheapest")
+    @When("user scroll for price")
+    public void userScrollForPrice() {
+        String priceOpenString="//div[text()='Fiyat']";
+        ReusableMethod.downWithJS(priceOpenString);
+    }
+
+    @And("user click price box")
+    public void userClickPriceBox() {
+        pd.priceOpen.click();
+    }
+
+    @And("user select price of the cheapest")
+    public void userSelectPriceOfTheCheapest() {
+        List<WebElement> aTags = pd.priceBox.findElements(By.tagName("a"));
+        ReusableMethod.webElementClickInListWithActions(aTags,1);
+    }
+
+
+   /* @And("user selected price of the cheapest")
     public void userSelectedPriceOfTheCheapest() {
         String priceOpenString="//div[text()='Fiyat']";
         ReusableMethod.downWithJS(priceOpenString);
@@ -59,19 +85,20 @@ public class CustomerMovents {
         ReusableMethod.webElementClickInListWithActions(aTags,1);
         ReusableMethod.waitFor(1);
     }
+*/
 
     @And("user selected price of the cheapest on the sorting price")
     public void userSelectedPriceOfTheCheapestOnTheSortingPrice() {
         ReusableMethod.waitFor(2);
-        WebElement a=Driver.getDriver().findElement(By.xpath("//*[@class='banner-rush-delivery']"));
-        if (!a.isDisplayed()){
+        try {
+            WebElement banner=Driver.getDriver().findElement(By.xpath("//*[@class='banner-rush-delivery']"));
+            if (banner.isEnabled()) {
+                ReusableMethod.dropDownSelect("En düşük fiyat");
+            }
+        }catch (NoSuchElementException e){
             ReusableMethod.priceSortingBoxClick("En düşük fiyat");
-        }else {
-            ReusableMethod.dropDownSelect("En düşük fiyat");
         }
-        //ReusableMethod.dropDownSelect("En düşük fiyat");
-        //ReusableMethod.priceSortingBoxClick("En düşük fiyat");
-        ReusableMethod.waitFor(2);
+
     }
 
     @And("the user should see the lowest priced product first in the ranking")
@@ -84,7 +111,6 @@ public class CustomerMovents {
         expectedTextInProduct=pd.firstProductBox.
                 findElement(By.xpath("//*[@class='prdct-desc-cntnr-ttl-w two-line-text']//span[2]")).
                 getAttribute("title");
-        ReusableMethod.waitFor(1);
         WebElement likeButton=pd.firstProductBox.findElement(By.xpath("//*[@class='fvrt-btn']"));
         likeButton.click();
     }
@@ -136,8 +162,9 @@ public class CustomerMovents {
     public void user_should_be_able_to_see_product_likes_in_the_my_shopping_cart_list() {
         String actualTextInProduct=pd.lastAddedProductInShoppingCartText.
                 findElement(By.xpath("//p[@class='pb-item']")).getAttribute("title");
-        System.out.println("actualTextInProduct = " + actualTextInProduct);
         Assert.assertTrue(actualTextInProduct.contains(expectedTextInProduct));
     }
+
+
 
 }

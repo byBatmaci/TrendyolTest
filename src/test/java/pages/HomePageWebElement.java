@@ -61,7 +61,7 @@ public class HomePageWebElement {
     @FindBy(xpath = "(//*[@class='card-rate-button'])[1]")
     public WebElement productEvaluate;
 
-    @FindBy(xpath = "(//*[@class='star'])[60]")
+    @FindBy(xpath = "//*[@class='ratings']//div[@class='star-w'][5]")
     public WebElement fiveStar;
 
     @FindBy(xpath = "//*[@class='tbwrapper']/textarea")

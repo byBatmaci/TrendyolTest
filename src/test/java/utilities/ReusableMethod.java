@@ -74,7 +74,7 @@ public class ReusableMethod {
 
     public static void listElementsClickableVerification(List<WebElement> elements) {
         for (int i = 0; i < elements.size(); i++) {
-            if (i == 9 || i == 10) {
+            if (i == 9 || i == 10 || i==11) {
                 break;
             }
             WebElement category = elements.get(i);
@@ -215,5 +215,6 @@ public class ReusableMethod {
         productDetails.clickedLikeButton.isDisplayed();
         return true;
     }
+
 
 }

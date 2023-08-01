@@ -16,14 +16,23 @@ Feature: Product search,liking the product,add product to cart
     And user enter the search button
     And actual result verification,result should contains any write
 
-  @LikingTheProduct
-  Scenario: liking the product
+  @ChoosingProductCriteria
+  Scenario: Choosing Product Criteria
     And user selected "Sneaker" in category
     And user selected size shoes
-    And user selected gender "erkek"
-    And user selected price of the cheapest
+    When user scrool for gender
+    And user click open gender
+    And user select gender
+    When user scrool for gender
+    And user close open gender
+    When user scroll for price
+    And user click price box
+    And user select price of the cheapest
     And user selected price of the cheapest on the sorting price
     And the user should see the lowest priced product first in the ranking
+
+  @LikeProductAndLikeListVerification
+    Scenario:Like Product And Like List Verification
     And user liked one of the cheapest
     And user should see click like button
     And user go the favorite list
